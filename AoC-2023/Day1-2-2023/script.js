@@ -19,6 +19,10 @@ function convertWordToDigit(str) {
 
   // Handle the special case of "eight" when preceded by "e"
   let result = str.replace(/(?<=e)ight/gi, "8");
+  result = result.replace(/(?<=o)ne/gi, "1");
+  result = result.replace(/(?<=t)wo/gi, "2");
+  result = result.replace(/(?<=t)hree/gi, "3");
+  result = result.replace(/(?<=n)ine/gi, "9");
 
   console.log("just replaced eight", result);
 
