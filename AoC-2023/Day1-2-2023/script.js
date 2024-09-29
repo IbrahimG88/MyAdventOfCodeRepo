@@ -1,5 +1,33 @@
 import challengeInput from "./inputData.js";
 
+function convertWordToDigit(str) {
+  // Mapping of number words to digits
+  const numberWords = {
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five: 5,
+    six: 6,
+    seven: 7,
+    eight: 8,
+    nine: 9,
+  };
+
+  // Regex to match all occurrences of number words in the string
+  const regex = new RegExp(`${Object.keys(numberWords).join("|")}`, "gi");
+
+  // Handle the special case of "eight" when preceded by "e"
+  let result = str.replace(/(?<=e)ight/gi, "8");
+
+  console.log("just replaced eight", result);
+
+  // Replace the word with its corresponding digit if it matches
+  result = result.replace(regex, (match) => numberWords[match.toLowerCase()]);
+
+  return result;
+}
+
 function main() {
   const challengeDoc = challengeInput();
   console.log(challengeDoc);
@@ -12,7 +40,9 @@ function main() {
   // Process each line
   lines.forEach((line, index) => {
     console.log(`Line ${index + 1}: ${line}`);
-    // Add your processing logic here
+
+    // Convert words to digits
+    line = convertWordToDigit(line);
 
     // create a string of all digits by regex in a single line and join the digits of that line together
     const digitsOnly = line.match(/\d+/g).join("");
@@ -21,15 +51,15 @@ function main() {
     // Find the first digit
     const firstDigit = digitsOnly[0];
 
-    // Find the final digit
+    // Find the last digit
     const lastDigit = digitsOnly.slice(-1);
 
     console.log(`First digit: ${firstDigit} Last digit: ${lastDigit}`);
 
-    // add both digits to an array:
-    desiredDigitsArray = [...desiredDigitsArray, firstDigit + lastDigit];
-
-    //console.log(`desiredDigitsArray: ${desiredDigitsArray}`);
+    // Add both digits as a number to the array:
+    const combinedNumber = Number(firstDigit + lastDigit);
+    console.log("combinedNumber", combinedNumber);
+    desiredDigitsArray = [...desiredDigitsArray, combinedNumber];
   });
 
   console.log(`desiredDigitsArray: ${desiredDigitsArray}`);
@@ -37,8 +67,7 @@ function main() {
   // convert the desired digits from strings to integers:
   const numberArray = [];
   for (let i = 0; i < desiredDigitsArray.length; i++) {
-    numberArray.push(Number(desiredDigitsArray[i]));
-    console.log("numberArray", numberArray);
+    numberArray.push(desiredDigitsArray[i]);
   }
 
   // get the sum of all values of the array:
