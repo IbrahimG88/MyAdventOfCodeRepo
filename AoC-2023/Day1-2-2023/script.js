@@ -18,10 +18,14 @@ function convertWordToDigit(str) {
   const regex = new RegExp(`${Object.keys(numberWords).join("|")}`, "gi");
 
   // Handle the special case of "eight" when preceded by "e"
-  let result = str.replace(/(?<=e)ight/gi, "8");
-  result = result.replace(/(?<=o)ne/gi, "1");
+  let result = str.replace(/(?<=o)ne/gi, "1");
   result = result.replace(/(?<=t)wo/gi, "2");
   result = result.replace(/(?<=t)hree/gi, "3");
+  result = result.replace(/(?<=f)our/gi, "4");
+  result = result.replace(/(?<=f)ive/gi, "5");
+  result = result.replace(/(?<=s)ix/gi, "6");
+  result = result.replace(/(?<=s)even/gi, "7");
+  result = result.replace(/(?<=e)ight/gi, "8");
   result = result.replace(/(?<=n)ine/gi, "9");
 
   console.log("just replaced eight", result);
